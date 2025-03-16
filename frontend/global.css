@@ -5,32 +5,32 @@
 /* Every style in the UI has its equivalent here: */
 @layer components {
     .header1 {
-        @apply text-3xl font-medium";
+        @apply text-4xl font-bold text-right";
 
     }
 
     .header2 {
-        @apply text-2xl font-bold ";
+        @apply text-2xl font-bold text-right";
 
     }
 
     .par1 {
-        @apply text-xl";
+        @apply text-xl text-right";
 
     }
 
     .par2 {
-        @apply text-sm";
+        @apply text-sm text-right";
 
     }
 
     .tag {
-        @apply text-sm font-bold";
+        @apply text-sm font-bold text-right";
 
     }
 
     .cap {
-        @apply text-xs";
+        @apply text-xs text-right";
 
     }
 
