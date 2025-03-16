@@ -179,6 +179,11 @@ module.exports = {
         body: undefined,
         mono: undefined,
         roboto: ["Roboto", "sans-serif"],
+        "readex-light": [ "ReadexPro_300Light", "Light"],
+        "readex-regular": ["ReadexPro_400Regular", "sans-serif"],
+        "readex-medium": ["ReadexPro_500Medium", "sans-serif"],
+        "readex-semibold": ["ReadexPro_600SemiBold", "sans-serif"],
+        "readex-bold": ["ReadexPro_700Bold", "sans-serif"],
       },
       fontWeight: {
         extrablack: "950",

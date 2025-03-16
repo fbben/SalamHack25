@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@/components/ui/icon";
 const CustomSelect = ({ placeholder, options }: any) => {
   return (
     <Select className="flex-1">
-      <SelectTrigger variant="outline">
+      <SelectTrigger className="h-[40px]" variant="outline">
         <SelectIcon className="mr-3" as={ChevronDownIcon} />
         <SelectInput placeholder={placeholder} />
       </SelectTrigger>
