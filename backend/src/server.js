@@ -1,4 +1,4 @@
-const connectDB = require("../config/db");
+const { connectDB, closeDB } = require("../config/db");
 
 require("dotenv").config();
 
@@ -10,4 +10,18 @@ connectDB();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+
+// Close the connection to the database when the server is closed
+process.on("SIGINT", async () => {
+  console.log("SIGINT received. Closing server...");
+  await closeDB();
+  process.exit(0);
+});
+
+process.on("SIGTERM", async () => {
+  console.log("SIGTERM received. Closing server...");
+  await closeDB();
+  process.exit(0);
 });
