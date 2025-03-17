@@ -1,5 +1,6 @@
 import React from "react";
 
+import { View } from "react-native";
 import { Input, InputField, InputSlot } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
@@ -31,12 +32,14 @@ import {
 } from "@/components/ui/checkbox";
 import { CheckIcon } from "@/components/ui/icon";
 
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+
 export default function SignupScreen() {
   return (
-    <VStack className="p-5 gap-8">
+    <VStack className="p-5 gap-3">
       <VStack>
         {/* return icon here */}
-        <Text className={`${styles.header1} ${styles.yellow}`}>التسجيل</Text>
+        <Text className={`${styles.header1} ${styles.yellow} `}>التسجيل</Text>
       </VStack>
       <VStack className="gap-3">
         <Text className={`${styles.par1} ${styles.gray1}`}>اسم المستخدم</Text>
@@ -74,6 +77,7 @@ export default function SignupScreen() {
         </Input>
 
         <Checkbox
+          value=""
           className="flex flex-row-reverse"
           size="md"
           isInvalid={false}
@@ -88,13 +92,33 @@ export default function SignupScreen() {
         </Checkbox>
 
         <Button className={`${styles.yellow_button}`}>
-          <ButtonText className={`${styles.par2} ${styles.gray1}`}>
+          <ButtonText className={`${styles.par1} ${styles.gray1}`}>
             تسجيل الدّخول
           </ButtonText>
         </Button>
 
-        <HStack>
-          <Text className={`${styles.par2} mx-auto`}>أو المتابعة باستخدام</Text>
+        <HStack className="text-stone-500 mt-2">
+          <Text className={`${styles.par2} mx-auto`}>_______________</Text>
+          <Text className={`${styles.par1} mx-auto `}>
+            أو المتابعة باستخدام
+          </Text>
+          <Text className={`${styles.par2} mx-auto`}>_______________</Text>
+        </HStack>
+
+        <HStack className="mx-auto gap-10">
+          <FontAwesome name="google" size={30} color="grey" />
+          <FontAwesome name="twitter" size={30} color="grey" />
+        </HStack>
+
+        <HStack className="flex-row-reverse mx-auto gap-2 mt-2">
+          <Text className={`${styles.par1} text-black mx-auto `}>
+            لديك حساب؟
+          </Text>
+          <Text
+            className={`${styles.par1} ${styles.yellow} underline text-black mx-auto `}
+          >
+            تسجيل الدّخول
+          </Text>
         </HStack>
       </VStack>
     </VStack>
