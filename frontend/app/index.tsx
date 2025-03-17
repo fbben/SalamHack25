@@ -3,7 +3,7 @@ import { Text } from "@/components/ui/text";
 import { Button, ButtonText } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
-import CustomSelect from "@/components/CustomSelect";
+import CustomSelect from "@/components/custom/CustomSelect";
 import { styles } from "@/styles";
 export default function StoryGenerator() {
 
@@ -15,12 +15,11 @@ export default function StoryGenerator() {
                 <Text className={`${styles.header2} ${styles.gray1}`}>بالصورة والصوت</Text>
             </VStack>
             <VStack className="gap-3">
-                <Text className={`${styles.header2} text-black`}>تفاصيل القصّة:</Text>
+                <Text className={`${styles.header2}`}>تفاصيل القصّة:</Text>
                 <Text className={`${styles.par1} ${styles.gray1}`} >فكرة القصّة الأساسيّة:</Text>
                 <Input>
                     <InputField className={`${styles.par2}`} placeholder="اكتب الفكرة الأساسيّة" />
                 </Input>
-
                 <HStack className=" flex-1 flex-row gap-2 mb-10">
                     <CustomSelect
                         placeholder="الأسلوب"

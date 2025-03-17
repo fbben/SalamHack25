@@ -13,6 +13,7 @@ import {
     ReadexPro_600SemiBold,
     ReadexPro_700Bold,
 } from '@expo-google-fonts/readex-pro';
+import Footer from "@/components/custom/Footer"
 
 //
 //everything in layout will be rendered before any other page under /app.
@@ -41,6 +42,7 @@ export default function RootLayout() {
         return (
             <GluestackUIProvider>
                 <Stack></Stack>
+                <Footer />
             </GluestackUIProvider>);
     }
 }
