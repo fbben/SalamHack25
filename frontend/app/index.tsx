@@ -11,14 +11,14 @@ export default function StoryGenerator() {
         <VStack className="p-5 gap-8">
             <VStack>
                 {/* return icon here */}
-                <Text className="font-readex-bold text-4xl color-[#FECC32] text-right">ولِّد قصّة مُبهرة لطفلك!</Text>
-                <Text className="font-readex-semibold text-2xl color-[#484C52] text-right">بالصورة والصوت</Text>
+                <Text className={`${styles.header1} ${styles.yellow}`}>ولِّد قصّة مُبهرة لطفلك!</Text>
+                <Text className={`${styles.header2} ${styles.gray1}`}>بالصورة والصوت</Text>
             </VStack>
             <VStack className="gap-3">
-                <Text className="text-2xl font-bold text-black text-right">تفاصيل القصّة:</Text>
-                <Text className="text-xl color-[#484C52] text-right">فكرة القصّة الأساسيّة:</Text>
+                <Text className={`${styles.header2} text-black`}>تفاصيل القصّة:</Text>
+                <Text className={`${styles.par1} ${styles.gray1}`} >فكرة القصّة الأساسيّة:</Text>
                 <Input>
-                    <InputField className="font-readex-regular text-sm text-right" placeholder="اكتب الفكرة الأساسيّة" />
+                    <InputField className={`${styles.par2}`} placeholder="اكتب الفكرة الأساسيّة" />
                 </Input>
 
                 <HStack className=" flex-1 flex-row gap-2 mb-10">
@@ -37,9 +37,9 @@ export default function StoryGenerator() {
                             { label: "الثيمة 3", value: "الثيمة 3" },
                         ]} />
                 </HStack>
-                <Text className="text-xl color-[#484C52] text-right">خصائص متقدّمة:</Text>
+                <Text className={`${styles.par1} ${styles.gray1}`}>خصائص متقدّمة:</Text>
                 <Input>
-                    <InputField className="text-sm text-right" placeholder="حدّد اسم البطل أو تفاصيل أخرى" />
+                    <InputField className={`${styles.par2} ${styles.gray2}`} placeholder="حدّد اسم البطل أو تفاصيل أخرى" />
                 </Input>
 
                 <HStack className=" flex-1 flex-row gap-2 mb-10">
@@ -59,10 +59,9 @@ export default function StoryGenerator() {
                         ]} />
                 </HStack>
                 <Input>
-                    <InputField className="text-sm text-right" placeholder="المغزى أو العبرة من القصّة" />
+                    <InputField className={`${styles.par2} ${styles.gray2}`} placeholder="المغزى أو العبرة من القصّة" />
                 </Input>
-                <Button className="bg-[#FECC32] hover:bg-yellow-400 "><ButtonText className="text-sm text-[#484C52]">توليد</ButtonText></Button>
-          <Text className={`${styles.header1}`}>مرّة أخرى</Text>
+                <Button className={`${styles.yellow_button}`}><ButtonText className={`${styles.par2} ${styles.gray1}`}>توليد</ButtonText></Button>
             </VStack>
         </VStack>
     );
