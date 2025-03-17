@@ -11,11 +11,16 @@ const storySchema = new mongoose.Schema({
   environment: { type: String },
   era: { type: String },
   created_at: { type: Date, default: Date.now },
-  parent_prompt_id: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "ParentPrompt", 
+  parent_prompt_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "ParentPrompt",
     unique: true // Ensures One-to-One relationship
-  }
+  },
+  storyPages: [
+    {
+      content: { type: String, required: true }, // Page text content
+      image_link: { type: String }, // URL to image (e.g., stored in Cloudinary)
+    }],
 });
 
 module.exports = mongoose.model("Story", storySchema);
