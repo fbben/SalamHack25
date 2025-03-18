@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-const Story = require("../models/Story"); // Assure-toi que ce fichier contient le schéma Story
+const Story = require("../models/Story"); 
 
 // Connexion à MongoDb
 
 async function seedDatabase() {
   try {
-    await Story.deleteMany(); // Supprime toutes les anciennes entrées (optionnel)
+    await Story.deleteMany(); 
 
     const stories = [
       {
@@ -64,9 +64,9 @@ async function seedDatabase() {
   } catch (err) {
     console.error("Error seeding database:", err);
   } finally {
-    mongoose.connection.close(); // Ferme la connexion après insertion
+    mongoose.connection.close(); 
   }
 }
 
-// Exécute la fonction
+
 seedDatabase();
