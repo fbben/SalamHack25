@@ -6,11 +6,9 @@ import { VStack } from "@/components/ui/vstack";
 import CustomSelect from "@/components/custom/CustomSelect";
 import { styles } from "@/styles";
 export default function StoryGenerator() {
-
     return (
         <VStack className="p-5 gap-8">
             <VStack>
-                {/* return icon here */}
                 <Text className={`${styles.header1} ${styles.yellow}`}>ولِّد قصّة مُبهرة لطفلك!</Text>
                 <Text className={`${styles.header2} ${styles.gray1}`}>بالصورة والصوت</Text>
             </VStack>
@@ -21,6 +19,13 @@ export default function StoryGenerator() {
                     <InputField className={`${styles.par2}`} placeholder="اكتب الفكرة الأساسيّة" />
                 </Input>
                 <HStack className=" flex-1 flex-row gap-2 mb-10">
+                    <CustomSelect
+                        placeholder="االأجواء"
+                        options={[
+                            { label: "الثيمة 1", value: "الثيمة 1" },
+                            { label: "الثيمة 2", value: "الثيمة 2" },
+                            { label: "الثيمة 3", value: "الثيمة 3" },
+                        ]} />
                     <CustomSelect
                         placeholder="الأسلوب"
                         options={[
@@ -35,8 +40,9 @@ export default function StoryGenerator() {
                             { label: "الثيمة 2", value: "الثيمة 2" },
                             { label: "الثيمة 3", value: "الثيمة 3" },
                         ]} />
+
                 </HStack>
-                <Text className={`${styles.par1} ${styles.gray1}`}>خصائص متقدّمة:</Text>
+                <Text className={`${styles.par1} ${styles.gray1} mt-6`}>خصائص متقدّمة:</Text>
                 <Input>
                     <InputField className={`${styles.par2} ${styles.gray2}`} placeholder="حدّد اسم البطل أو تفاصيل أخرى" />
                 </Input>
@@ -60,7 +66,13 @@ export default function StoryGenerator() {
                 <Input>
                     <InputField className={`${styles.par2} ${styles.gray2}`} placeholder="المغزى أو العبرة من القصّة" />
                 </Input>
-                <Button className={`${styles.yellow_button}`}><ButtonText className={`${styles.par2} ${styles.gray1}`}>توليد</ButtonText></Button>
+                <CustomSelect
+                    placeholder="حدّد صوت القاصّ"
+                    options={[
+                        { label: "ذكر", value: "ذكر" },
+                        { label: "أنثى", value: "أنثى" },
+                    ]} />
+                <Button className={`${styles.yellow_button} mt-9`}><ButtonText className={`${styles.par2} ${styles.gray1}`}>توليد</ButtonText></Button>
             </VStack>
         </VStack>
     );
