@@ -4,6 +4,7 @@ import { HStack } from "@/components/ui/hstack";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
+
 export default function Footer() {
   return (
     <HStack className="p-3" space="md" reversed={false}>

@@ -21,6 +21,9 @@ import { styles } from "@/styles";
 
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "@/api/auth";
+import { useRouter } from "expo-router";
+import { Pressable } from "react-native";
+import { ScrollView } from "react-native";
 
 // Import toast directly from react-native-toast-message
 import Toast from "react-native-toast-message";
@@ -32,6 +35,8 @@ export default function SignupScreen() {
   // Local state for toggling password visibility.
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const router = useRouter();
 
   // Mutation to call the signup API.
   const mutation = useMutation({
@@ -58,6 +63,7 @@ export default function SignupScreen() {
   };
 
   return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <VStack className="p-5 gap-8 mt-6">
       {/* Header */}
       <VStack>
@@ -262,14 +268,17 @@ export default function SignupScreen() {
         </HStack>
         <HStack className="flex-row-reverse mx-auto gap-2">
           <Text className={`${styles.par1} text-black mx-auto`}>لديك حساب؟</Text>
+          <Pressable onPress={() => router.push("/login")}>
           <Text
             className={`${styles.par1} ${styles.yellow} underline text-black mx-auto`}
-            onPress={() => console.log("Navigate to login")}
+            
           >
             تسجيل الدّخول
           </Text>
+          </Pressable>
         </HStack>
       </VStack>
     </VStack>
+    </ScrollView>
   );
 }
