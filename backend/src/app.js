@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 
 const storyReadingRoutes = require('../routes/storyReadingRoutes');
 const authRoutes = require("../routes/authRoutes")
+const usersRoutes = require("../routes/users")
 
 
 
@@ -24,6 +25,7 @@ app.use(morgan('dev'));
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/story-reading", storyReadingRoutes);
+app.use("/api/v1/users", usersRoutes);
 
 app.get('/', (req, res) => {
   res.send('Express Server Running');

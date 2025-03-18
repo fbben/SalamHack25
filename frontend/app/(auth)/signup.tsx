@@ -21,9 +21,11 @@ import { styles } from "@/styles";
 
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "@/api/auth";
+import { storeToken, checkStoredToken } from "@/utils/expoStorage"
 import { useRouter } from "expo-router";
 import { Pressable } from "react-native";
 import { ScrollView } from "react-native";
+
 
 // Import toast directly from react-native-toast-message
 import Toast from "react-native-toast-message";
@@ -48,6 +50,8 @@ export default function SignupScreen() {
         text2: data.message || "Your account has been created.",
       });
       reset();
+      storeToken(data.data.token);
+      checkStoredToken();
     },
     onError: (error) => {
       Toast.show({
