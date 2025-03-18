@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+
+
 const storyReadingRoutes = require('../routes/storyReadingRoutes');
+const authRoutes = require("../routes/authRoutes")
 
 
 
@@ -18,9 +21,9 @@ app.use(cors());
 app.use(morgan('dev'));
 
 
-
 // Routes
-app.use("/story-reading", storyReadingRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/story-reading", storyReadingRoutes);
 
 app.get('/', (req, res) => {
   res.send('Express Server Running');
