@@ -13,6 +13,9 @@ import { useState } from "react";
 //
 //this is an example of the backend response,
 //the images should be urls.
+//the audio shoul be handeled in the fornt?
+//it will not be generated, neither saved in the BD,
+//so why send a big json requests?
 
 //IMPORTANT!
 //the story should not have "" marks, or any
