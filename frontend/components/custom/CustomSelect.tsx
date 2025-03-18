@@ -3,12 +3,13 @@ import { Select, SelectContent, SelectIcon, SelectInput, SelectItem, SelectPorta
 import { ChevronDownIcon } from "@/components/ui/icon";
 import { styles } from "@/styles";
 
-const CustomSelect = ({ placeholder, options }: any) => {
+const CustomSelect = ({ placeholder, options, value, onSelect}: any) => {
+  
   return (
-    <Select className="flex-1">
-      <SelectTrigger className="h-[40px]" variant="outline">
+    <Select className="flex-1 mb-10" onValueChange={onSelect}>
+      <SelectTrigger className="h-[40px] flex justify-between" variant="outline">
         <SelectIcon className="mr-3" as={ChevronDownIcon} />
-        <SelectInput className={`${styles.par2}`} placeholder={placeholder} />
+        <SelectInput className={`${styles.par2}`} placeholder={placeholder} value={value} />
       </SelectTrigger>
       <SelectPortal>
         <SelectContent>
