@@ -5,6 +5,7 @@ import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
 import CustomSelect from "@/components/custom/CustomSelect";
 import { styles } from "@/styles";
+
 export default function StoryGenerator() {
     return (
         <VStack className="p-5 gap-8">

@@ -1,5 +1,5 @@
 
-import { Stack } from "expo-router";
+import { Stack, Tabs} from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { useEffect } from "react";
@@ -42,8 +42,9 @@ export default function RootLayout() {
         console.log("Font is loaded!");
         return (
             <GluestackUIProvider>
-                <Stack></Stack>
-                <Footer />
+                <Tabs></Tabs>
+                {/* <Stack></Stack> */}
+                {/* <Footer /> */}
             </GluestackUIProvider>);
     }
 }
