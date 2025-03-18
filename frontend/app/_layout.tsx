@@ -39,6 +39,7 @@ export default function RootLayout() {
     if (!fontsLoaded) {
         console.log("Font is not loaded!");
     } else {
+        console.log("Font is loaded!");
         return (
             <GluestackUIProvider>
                 <Stack></Stack>
@@ -46,3 +47,17 @@ export default function RootLayout() {
             </GluestackUIProvider>);
     }
 }
+
+//we must define it in he pages at least once, it works, it needs explanation!
+const styles = {
+    header1: "font-readex-bold text-4xl text-right",
+    header2: "font-readex-semibold text-2xl text-right",
+    par1: "font-readex-regular text-xl text-right",
+    par2: "font-readex-regular text-sm text-right",
+    tag: "font-readex-bold text-sm text-right",
+    cap: "font-readex-regular text-xs text-right",
+    yellow: "text-[#FECC32]",
+    gray1: "text-[#484C52]",
+    gray2: " text-[#737373]",
+    yellow_button: " bg-[#FECC32] hover:bg-yellow-400 text-[#484C52]"
+};
