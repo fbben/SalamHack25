@@ -51,11 +51,12 @@ export default function RootLayout() {
             <>
             <QueryClientProvider client={queryClient}>
             <GluestackUIProvider>
-                <Stack></Stack>
+                <Tabs></Tabs>
                 <Footer />
             </GluestackUIProvider>
             </QueryClientProvider>
-            <Toast ref={(ref) => Toast.setRef(ref)} />
+            <Toast ref={(ref) => Toast.setRef(ref)} />]
+            
             </>
             
         )
