@@ -15,6 +15,12 @@ import {
 } from '@expo-google-fonts/readex-pro';
 import Footer from "@/components/custom/Footer"
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Toast from 'react-native-toast-message';
+
+const queryClient = new QueryClient();
+
+
 //
 //everything in layout will be rendered before any other page under /app.
 //the folder /app will contain the app screens.
@@ -36,15 +42,23 @@ export default function RootLayout() {
         ReadexPro_700Bold,
     });
 
+
     if (!fontsLoaded) {
         console.log("Font is not loaded!");
     } else {
         console.log("Font is loaded!");
         return (
+            <>
+            <QueryClientProvider client={queryClient}>
             <GluestackUIProvider>
                 <Stack></Stack>
                 <Footer />
-            </GluestackUIProvider>);
+            </GluestackUIProvider>
+            </QueryClientProvider>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
+            </>
+            
+        )
     }
 }
 
