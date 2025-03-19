@@ -65,3 +65,4 @@ settings.json
 # OS generated files
 .DS_Store
 Thumbs.db
+backend/package-lock.json
