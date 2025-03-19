@@ -1,5 +1,5 @@
 
-import { Stack, Tabs} from "expo-router";
+import { Tabs, Stack } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ import {
     ReadexPro_700Bold,
 } from '@expo-google-fonts/readex-pro';
 import Footer from "@/components/custom/Footer"
+import * as React from 'react';
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast from 'react-native-toast-message';
@@ -24,6 +25,7 @@ const queryClient = new QueryClient();
 //
 //everything in layout will be rendered before any other page under /app.
 //the folder /app will contain the app screens.
+
 export default function RootLayout() {
 
     //RTL support:
@@ -56,7 +58,6 @@ export default function RootLayout() {
             </GluestackUIProvider>
             </QueryClientProvider>
             <Toast ref={(ref) => Toast.setRef(ref)} />]
-            
             </>
             
         )

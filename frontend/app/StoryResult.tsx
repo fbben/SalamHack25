@@ -6,8 +6,11 @@ import { HStack } from "@/components/ui/hstack";
 import { Box } from "@/components/ui/box";
 import { ScrollView, Image } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Modal, ModalBackdrop, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@/components/ui/modal';
+import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/components/ui/modal';
 import { useState } from "react";
+import { Alert } from "react-native";
+import { deleteStory } from "@/api/StoryResult";
+import { useLocalSearchParams } from "expo-router";
 
 
 //
@@ -21,22 +24,25 @@ import { useState } from "react";
 //the story should not have "" marks, or any
 //specifc characters that can break the json.
 
-const GeneraterStory = {
-    "Segments": [
-        { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
-        { text: "ذات يوم، قررت لمى أن تزرع زهرة جميلة أمام باب بيتها، وقالت: سأسميها زهرة فلسطين، وسأعتني بها كما تعتني فلسطين بنا!", image: "./assets/images/rose.png" },
-        { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
-    ],
-    "audio": "hello"
-};
 
 export default function StoryResult() {
+
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
-    const handleDelete = () => {
+
+    const { storyData } = useLocalSearchParams();
+    const GeneratedStory = storyData ? JSON.parse(storyData as string) : null;
+
+    const handleDelete = async () => {
         setDeletePopupVisible(false);
-        console.log("Story deleted!");
-        // call API to delete story.
-        // route to library page.
+        //call API:
+        //NB: call the delete function with id.
+        const result = await deleteStory();
+        if (result.success) {
+            Alert.alert("تم الحذف", "تم حذف القصة بنجاح!");
+            // route to Library screen.
+        } else {
+            Alert.alert("خطأ", "حدث خطأ أثناء الحذف، يرجى المحاولة لاحقًا.");
+        }
     };
 
     return (
@@ -45,7 +51,7 @@ export default function StoryResult() {
 
             <ScrollView className="flex-1 mt-4 mb-4">
                 <VStack className="gap-6">
-                    {GeneraterStory.Segments.map((segment, index) => (
+                    {GeneratedStory.Segments.map((segment: any, index: any) => (
                         <VStack key={index} className="gap-3">
                             <Text className={`${styles.par1}`}>{segment.text}</Text>
                             <Image source={require('/assets/rose.png')} className="w-full h-48 rounded-lg" />
@@ -69,7 +75,7 @@ export default function StoryResult() {
             </VStack>
 
             {/* delete modal: */}
-            <Modal isOpen={isDeletePopupVisible} onClose={() => setDeletePopupVisible(false)}>
+            <Modal isOpen={isDeletePopupVisible}>
                 <ModalBackdrop />
                 <ModalContent>
                     <Text className={`${styles.header2} text-black`}>تأكيد الحذف:</Text>
@@ -78,10 +84,10 @@ export default function StoryResult() {
                     </ModalBody>
                     <ModalFooter className="flex-row gap-4">
                         <Button className="bg-gray-300 flex-1" onPress={() => setDeletePopupVisible(false)}>
-                            <ButtonText>إلغاء</ButtonText>
+                            <ButtonText className={`${styles.par1}`}>إلغاء</ButtonText>
                         </Button>
                         <Button className="bg-red-500 flex-1" onPress={handleDelete}>
-                            <ButtonText className="text-white">حذف</ButtonText>
+                            <ButtonText className={`${styles.par1} tetx-white`}>حذف</ButtonText>
                         </Button>
                     </ModalFooter>
                 </ModalContent>
