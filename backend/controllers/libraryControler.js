@@ -1,18 +1,16 @@
-const Story = require("../models/Story"); 
+const Story = require("../models/Story"); // Assure-toi que le modèle est bien importé
+
 const getAllStories = async (req, res) => {
   try {
-    
+    // Récupère toutes les stories avec uniquement `title` et `storyPages.image_link` (première image)
     const stories = await Story.find();
 
-    
-    const formattedStories = stories.map(story => ({
-      title: story.title,
-      image: story.storyPages.length > 0 ? story.storyPages[0].image_link : null
-    }));
+    // Reformate les données pour ne garder que la première image de chaque story
+ 
 
-    res.status(200).json(formattedStories);
+    res.status(200).json(stories);
   } catch (error) {
-    res.status(500).json({ message: "Server Error", error });
+    res.status(500).json({ message: "Erreur serveur", error });
   }
 };
 
