@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/components/ui/modal';
 import { generateStory } from "@/api/StoryGenerator";
+import { useRouter } from "expo-router";
 
 export default function StoryGenerator() {
 
@@ -25,6 +26,8 @@ export default function StoryGenerator() {
     });
     const [isConfirmPopupVisible, setConfirmPopupVisible] = useState(false);
 
+    const router = useRouter();
+
     const updateStoryPreferences = (key: any, value: any) => {
         setStoryPreferences(prev => ({ ...prev, [key]: value }));
     };
@@ -37,16 +40,29 @@ export default function StoryGenerator() {
         setConfirmPopupVisible(true);
     }
 
+    const story = {
+        "Segments": [
+            { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
+            { text: "ذات يوم، قررت لمى أن تزرع زهرة جميلة أمام باب بيتها، وقالت: سأسميها زهرة فلسطين، وسأعتني بها كما تعتني فلسطين بنا!", image: "./assets/images/rose.png" },
+            { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
+        ],
+        "audio": "hello"
+    };
     const handleStoryGeneration = async () => {
-        //call API.
-        try {
-            const story = await generateStory(storyPreferences);
-            console.log("Generated Story:", story);
-            //route to StoryGeneration screen with the storyData prompt.
-        }
-        catch (error) {
-            Alert.alert("خطأ", "حدث خطأ أثناء توليد القصة. يرجى المحاولة لاحقًا.");
-        };
+
+        setConfirmPopupVisible(false);
+        router.push({ pathname: "/StoryResult", params: { storyData: JSON.stringify(story) } });
+
+        // //call API.
+        // try {
+        //     const story = await generateStory(storyPreferences);
+        //     console.log("Generated Story:", story);
+        //     //route to StoryGeneration screen with the storyData prompt
+        // setConfirmPopupVisible(false);
+        // router.push({ pathname: "/StoryResult", params: { storyData: JSON.stringify(story) } });
+        // catch (error) {
+        //     Alert.alert("خطأ", "حدث خطأ أثناء توليد القصة. يرجى المحاولة لاحقًا.");
+        // };
     }
 
     return (

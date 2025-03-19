@@ -10,6 +10,7 @@ import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/co
 import { useState } from "react";
 import { Alert } from "react-native";
 import { deleteStory } from "@/api/StoryResult";
+import { useLocalSearchParams } from "expo-router";
 
 
 //
@@ -23,18 +24,13 @@ import { deleteStory } from "@/api/StoryResult";
 //the story should not have "" marks, or any
 //specifc characters that can break the json.
 
-const GeneraterStory = {
-    "Segments": [
-        { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
-        { text: "ذات يوم، قررت لمى أن تزرع زهرة جميلة أمام باب بيتها، وقالت: سأسميها زهرة فلسطين، وسأعتني بها كما تعتني فلسطين بنا!", image: "./assets/images/rose.png" },
-        { text: "في قرية صغيرة بالقرب من القدس، عاشت فتاة صغيرة اسمها لمى. كانت تحب الزهور كثيرًا، وتهتم بحديقة بيتها الصغير. كانت جدتها دائمًا تخبرها قصصًا عن فلسطين، عن شوارع القدس العتيقة، وعن المسجد الأقصى، وعن الزيتون الذي يملأ الأرض بطيبته.", image: "./assets/images/rose.png" },
-    ],
-    "audio": "hello"
-};
 
 export default function StoryResult() {
 
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
+
+    const { storyData } = useLocalSearchParams();
+    const GeneratedStory = storyData ? JSON.parse(storyData as string) : null;
 
     const handleDelete = async () => {
         setDeletePopupVisible(false);
@@ -55,7 +51,7 @@ export default function StoryResult() {
 
             <ScrollView className="flex-1 mt-4 mb-4">
                 <VStack className="gap-6">
-                    {GeneraterStory.Segments.map((segment, index) => (
+                    {GeneratedStory.Segments.map((segment: any, index: any) => (
                         <VStack key={index} className="gap-3">
                             <Text className={`${styles.par1}`}>{segment.text}</Text>
                             <Image source={require('/assets/rose.png')} className="w-full h-48 rounded-lg" />

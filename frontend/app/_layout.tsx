@@ -1,5 +1,5 @@
 
-import { Stack, Tabs} from "expo-router";
+import { Tabs, Stack } from "expo-router";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { useEffect } from "react";
@@ -14,10 +14,12 @@ import {
     ReadexPro_700Bold,
 } from '@expo-google-fonts/readex-pro';
 import Footer from "@/components/custom/Footer"
+import * as React from 'react';
 
 //
 //everything in layout will be rendered before any other page under /app.
 //the folder /app will contain the app screens.
+
 export default function RootLayout() {
 
     //RTL support:
@@ -42,10 +44,11 @@ export default function RootLayout() {
         console.log("Font is loaded!");
         return (
             <GluestackUIProvider>
-                <Tabs></Tabs>
-                {/* <Stack></Stack> */}
+                {/* <Tabs></Tabs> */}
+                <Stack></Stack>
                 {/* <Footer /> */}
-            </GluestackUIProvider>);
+            </GluestackUIProvider>
+        );
     }
 }
 
