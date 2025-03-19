@@ -31,7 +31,9 @@ const GeneraterStory = {
 };
 
 export default function StoryResult() {
+
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
+
     const handleDelete = () => {
         setDeletePopupVisible(false);
         console.log("Story deleted!");
@@ -69,7 +71,7 @@ export default function StoryResult() {
             </VStack>
 
             {/* delete modal: */}
-            <Modal isOpen={isDeletePopupVisible} onClose={() => setDeletePopupVisible(false)}>
+            <Modal isOpen={isDeletePopupVisible}>
                 <ModalBackdrop />
                 <ModalContent>
                     <Text className={`${styles.header2} text-black`}>تأكيد الحذف:</Text>
@@ -78,10 +80,10 @@ export default function StoryResult() {
                     </ModalBody>
                     <ModalFooter className="flex-row gap-4">
                         <Button className="bg-gray-300 flex-1" onPress={() => setDeletePopupVisible(false)}>
-                            <ButtonText>إلغاء</ButtonText>
+                            <ButtonText className={`${styles.par1}`}>إلغاء</ButtonText>
                         </Button>
                         <Button className="bg-red-500 flex-1" onPress={handleDelete}>
-                            <ButtonText className="text-white">حذف</ButtonText>
+                            <ButtonText className={`${styles.par1} tetx-white`}>حذف</ButtonText>
                         </Button>
                     </ModalFooter>
                 </ModalContent>
