@@ -7,7 +7,8 @@ import CustomSelect from "@/components/custom/CustomSelect";
 import { styles } from "@/styles";
 import { useState } from "react";
 import { Alert } from "react-native";
-import { Modal, ModalBackdrop, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@/components/ui/modal';
+import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/components/ui/modal';
+import { generateStory } from "@/api/StoryGenerator";
 
 export default function StoryGenerator() {
 
@@ -24,7 +25,6 @@ export default function StoryGenerator() {
     });
     const [isConfirmPopupVisible, setConfirmPopupVisible] = useState(false);
 
-
     const updateStoryPreferences = (key: any, value: any) => {
         setStoryPreferences(prev => ({ ...prev, [key]: value }));
     };
@@ -37,12 +37,17 @@ export default function StoryGenerator() {
         setConfirmPopupVisible(true);
     }
 
-    const handleStoryGeneration = () => {
+    const handleStoryGeneration = async () => {
         //call API.
-        //route to Story Result.
-        console.log("story is generated!");
+        try {
+            const story = await generateStory(storyPreferences);
+            console.log("Generated Story:", story);
+            //route to StoryGeneration screen with the storyData prompt.
+        }
+        catch (error) {
+            Alert.alert("خطأ", "حدث خطأ أثناء توليد القصة. يرجى المحاولة لاحقًا.");
+        };
     }
-
 
     return (
         <VStack className="p-5 gap-8">
@@ -165,4 +170,3 @@ export default function StoryGenerator() {
         </VStack>
     );
 }
-

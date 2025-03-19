@@ -6,8 +6,10 @@ import { HStack } from "@/components/ui/hstack";
 import { Box } from "@/components/ui/box";
 import { ScrollView, Image } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Modal, ModalBackdrop, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from '@/components/ui/modal';
+import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/components/ui/modal';
 import { useState } from "react";
+import { Alert } from "react-native";
+import { deleteStory } from "@/api/StoryResult";
 
 
 //
@@ -34,11 +36,17 @@ export default function StoryResult() {
 
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         setDeletePopupVisible(false);
-        console.log("Story deleted!");
-        // call API to delete story.
-        // route to library page.
+        //call API:
+        //NB: call the delete function with id.
+        const result = await deleteStory();
+        if (result.success) {
+            Alert.alert("تم الحذف", "تم حذف القصة بنجاح!");
+            // route to Library screen.
+        } else {
+            Alert.alert("خطأ", "حدث خطأ أثناء الحذف، يرجى المحاولة لاحقًا.");
+        }
     };
 
     return (
