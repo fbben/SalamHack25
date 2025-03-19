@@ -8,9 +8,10 @@ const PORT = process.env.PORT || 5000;
 
 connectDB();
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
 
 
 // Close the connection to the database when the server is closed

@@ -1,72 +1,46 @@
-const mongoose = require("mongoose");
-const Story = require("../models/Story"); // Assure-toi que ce fichier contient le schéma Story
+import mongoose from "mongoose";
+import ParentPrompt from "../models/ParentPrompt.js"; // Adjust path if needed
 
-// Connexion à MongoDb
+// MongoDB Connection
+async function connectDB() {
+  await mongoose.connect("mongodb://127.0.0.1:27017/myschema", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  console.log("MongoDB connected!");
+}
 
-async function seedDatabase() {
+// Example Data
+const examplePrompt = {
+    story_id: new mongoose.Types.ObjectId(), 
+    theme: "رياضة",
+    narrative_style: "الراوي العليم",
+    length: "متوسط",
+    tone: "ملهم",
+    locations_and_decor: "ملاعب كرة القدم، الشوارع حيث يتدرب الأطفال، أكاديمية رياضية حديثة",
+    environment: "حضري",
+    era: "الحاضر",
+    morals: "المثابرة والعمل الجاد يقودان إلى النجاح",
+    message: "الإيمان بالحلم والسعي المستمر يجعلان المستحيل ممكنًا",
+    num_characters: 3,
+    audio_choice: "موسيقى تحفيزية وحماسية"
+  }
+  ;
+
+// Function to Populate Database
+async function savePrompt() {
+  await connectDB();
+
   try {
-    await Story.deleteMany(); // Supprime toutes les anciennes entrées (optionnel)
-
-    const stories = [
-      {
-        library_id: new mongoose.Types.ObjectId(),
-        title: "The Lost World",
-        theme: "Adventure",
-        summary: "A group of explorers discover a hidden island.",
-        climate: "Tropical",
-        locations: "Jungle, Volcano, River",
-        decor: "Ancient ruins",
-        environment: "Wild nature",
-        era: "Modern",
-        parent_prompt_id: new mongoose.Types.ObjectId(),
-        storyPages: [
-          { content: "Our journey begins in the heart of the jungle.", image_link: "jungle.png" },
-          { content: "We discover an ancient ruin.", image_link: "ruins.png" }
-        ]
-      },
-      {
-        library_id: new mongoose.Types.ObjectId(),
-        title: "Cyber Future",
-        theme: "Sci-Fi",
-        summary: "A hacker fights against a dystopian AI government.",
-        climate: "Artificial",
-        locations: "Cyber City, Underground Base",
-        decor: "Neon lights, Holograms",
-        environment: "High-tech",
-        era: "Futuristic",
-        parent_prompt_id: new mongoose.Types.ObjectId(),
-        storyPages: [
-          { content: "In the year 2099, technology controls everything.", image_link: "cybercity.png" },
-          { content: "The resistance gathers in the underground.", image_link: "underground.png" }
-        ]
-      },
-      {
-        library_id: new mongoose.Types.ObjectId(),
-        title: "Medieval Legends",
-        theme: "Fantasy",
-        summary: "A knight must defeat a dragon to save his kingdom.",
-        climate: "Cold",
-        locations: "Castle, Dark Forest, Mountain",
-        decor: "Stone castles, Wooden villages",
-        environment: "Medieval",
-        era: "Middle Ages",
-        parent_prompt_id: new mongoose.Types.ObjectId(),
-        storyPages: [
-          { content: "The king calls upon the bravest knight.", image_link: "castle.png" },
-          { content: "The final battle against the dragon begins.", image_link: "dragon.png" }
-        ]
-      }
-    ];
-
-    await Story.insertMany(stories);
-    console.log("Database seeded with 3 stories!");
-    
-  } catch (err) {
-    console.error("Error seeding database:", err);
+    const newPrompt = new ParentPrompt(examplePrompt);
+    const savedPrompt = await newPrompt.save();
+    console.log("Saved successfully:", savedPrompt);
+  } catch (error) {
+    console.error("Error saving:", error);
   } finally {
-    mongoose.connection.close(); // Ferme la connexion après insertion
+    await mongoose.connection.close();
   }
 }
 
-// Exécute la fonction
-seedDatabase();
+// Run the Function
+savePrompt();
