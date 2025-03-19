@@ -4,7 +4,15 @@ import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
 import { styles } from "@/styles";
 export default function StoryCover( {title = "عنوان القصة" , image }: { title: string, image: any } ){
+    console.log(title,image)
+    
+    
     return(
+
+
+        
+
+
         <Pressable onPress={() => console.log(`${title} Pressed`)} >
         <View className="flex-col justify-center items-center">
             <Image
