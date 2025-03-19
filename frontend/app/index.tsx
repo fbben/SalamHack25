@@ -10,6 +10,7 @@ import { Alert } from "react-native";
 import { Modal, ModalBackdrop, ModalContent, ModalBody, ModalFooter } from '@/components/ui/modal';
 import { generateStory } from "@/api/StoryGenerator";
 import { useRouter } from "expo-router";
+import { ScrollView } from "react-native";
 
 export default function StoryGenerator() {
 
@@ -48,6 +49,7 @@ export default function StoryGenerator() {
         ],
         "audio": "hello"
     };
+
     const handleStoryGeneration = async () => {
 
         setConfirmPopupVisible(false);
@@ -66,6 +68,7 @@ export default function StoryGenerator() {
     }
 
     return (
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <VStack className="p-5 gap-8">
             <VStack>
                 <Text className={`${styles.header1} ${styles.yellow}`}>ولِّد قصّة مُبهرة لطفلك!</Text>
@@ -184,5 +187,6 @@ export default function StoryGenerator() {
                 </ModalContent>
             </Modal>
         </VStack>
+        </ScrollView>
     );
 }
