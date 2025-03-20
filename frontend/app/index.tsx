@@ -42,7 +42,7 @@ export default function LandingPage() {
           تسجيل الدّخول
         </Text>
       </Pressable>
-      <Pressable onPress={() => router.replace("/library")}>
+      <Pressable onPress={() => router.replace("/Library")}>
         <Text
           className={`${styles.par1} ${styles.yellow} underline text-black mx-auto`}
         >

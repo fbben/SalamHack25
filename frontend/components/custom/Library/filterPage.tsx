@@ -48,7 +48,7 @@ export default function FilterPage({
         <ModalBackdrop />
         <ModalContent>
           <ModalHeader className="flex-row-reverse justify-between">
-            <Text className={`${styles.header2}`}>فلترة القصص</Text>
+            <Text className={`${styles.header2} text-black`}>فلترة القصص</Text>
             <ModalCloseButton>
               <Icon
                 as={CloseIcon}
@@ -58,15 +58,10 @@ export default function FilterPage({
             </ModalCloseButton>
           </ModalHeader>
           <ModalBody>
-            <Text className={`${styles.par1} `}>مواضيع القصص</Text>
+            <Text className={`${styles.par2} mb-3`}>اختر ثيمة القصّة</Text>
             <FilterCheckBox
               filter={arabicStoryThemes}
               setFilter={setFilterTheme}
-            />
-            <Text className={`${styles.par1}`}>أسلوب الكتابة</Text>
-            <FilterCheckBox
-              filter={writingStyles}
-              setFilter={setFilterWritingStyle}
             />
           </ModalBody>
           <ModalFooter className="flex-row-reverse justify-end">
@@ -77,8 +72,9 @@ export default function FilterPage({
                 setShowModal(false);
                 DiscardFilter();
               }}
+              className="bg-gray-300"
             >
-              <ButtonText className={`${styles.par2}`}>إلغاء</ButtonText>
+              <ButtonText className={`${styles.par2} text-white`}>إلغاء</ButtonText>
             </Button>
             <Button
               className={`${styles.yellow_button}`}

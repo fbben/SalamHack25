@@ -30,7 +30,7 @@ import { useRouter } from "expo-router";
 export default function StoryResult() {
 
     const router = useRouter();
-    
+
 
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
 
@@ -71,7 +71,10 @@ export default function StoryResult() {
                     <AntDesign name="play" size={30} color="#FECC32" />
                     <Box className=" flex-1 h-[2px] bg-[#FECC32] self-center"></Box>
                 </HStack>
-                <Button onPress={() => router.replace("/library")} className={`${styles.yellow_button}`}>
+                <Button onPress={() => {
+                    Alert.alert("تمّت الإضافة", "تمت إضافة القصة بنجاح!");
+                    router.replace("/Library")
+                }} className={`${styles.yellow_button}`}>
                     <ButtonText className={`${styles.par2} ${styles.gray1}`}>إضافة القصّة إلى المكتبة</ButtonText>
                 </Button>
                 <Button className={`${styles.yellow_button}`} onPress={() => setDeletePopupVisible(true)}>
