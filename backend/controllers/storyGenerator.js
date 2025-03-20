@@ -1,29 +1,58 @@
-import Replicate from "replicate";
-import dotenv from "dotenv";
-import fs from "fs";
-import axios from "axios";
-import mongoose from "mongoose";
-import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
-import { AzureKeyCredential } from "@azure/core-auth";
-import ParentPrompt from "../models/ParentPrompt.js";
-import translate from 'google-translate-api-x';
+// import Replicate from "replicate";
+// import dotenv from "dotenv";
+// import fs from "fs";
+// import axios from "axios";
+// import mongoose from "mongoose";
+// import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
+// import { AzureKeyCredential } from "@azure/core-auth";
+// import ParentPrompt from "../models/ParentPrompt.js";
+// import translate from 'google-translate-api-x';
 
-dotenv.config({ path: '../.env' });
+const replicate = require("replicate");
+const dotenv = require("dotenv");
+const fs = require("fs");
+const axios = require("axios");
+const mongoose = require("mongoose");
+const { ModelClient, isUnexpected } = require("@azure-rest/ai-inference");
+const { AzureKeyCredential } = require("@azure/core-auth");
+const translate = require("google-translate-api-x");
+const ParentPrompt = require("../models/ParentPrompt");
 
-const AZURE_API_KEY = process.env.AZURE_API_KEY;
-const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY;
 
 
-/// important : we need an api for the image generator , find one !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const generateStory = async function (req, res) {
+    try {
+        const storyPages = await generateStoryText();
 
+        if (!Array.isArray(storyPages) || storyPages.length === 0) {
+            return res.status(500).json({ error: "Generated story is empty or invalid"});
+        }
 
-if (!AZURE_API_KEY || !REPLICATE_API_KEY) {
-    throw new Error("AZURE_API_KEY or REPLICATE_API_KEY is not set in environment variables.");
+        const storyWithImageslink = [];
+        for (const page of storyPages) {
+            // const imageUrl = await generateImage(page);
+            // storyWithImages.push({ ...page, image: imageUrl });
+            storyWithImageslink.push({ ...page, image: "imageUrl"});
+        }
+
+        return res.json(storyWithImageslink);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 }
 
-async function generateStoryText() {
+
+
+const generateStoryText = async function () {
+const AZURE_API_KEY = process.env.AZURE_API_KEY;
+
+if (!AZURE_API_KEY) {
+    throw new Error("AZURE_API_KEY is not set in environment variables.");
+}
+
     // retreive Prompt
     const parentPrompt = await getFirstParentPrompt();
+    console.log("parentPrompt of storyGenerator is : ",parentPrompt);
     if (!parentPrompt) {
         throw new Error("No parent prompt found in the database.");
     }
@@ -97,7 +126,12 @@ async function getFirstParentPrompt() {
 }
 async function generateImage(page) {
     try {
-        const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
+const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY;
+
+if (!REPLICATE_API_KEY) {
+    throw new Error("REPLICATE_API_KEY is not set in environment variables.");
+}
+        const replicate = new Replicate({ auth: !REPLICATE_API_KEY });
 
         const translatedContent = await translateToEnglish(page.content);
         const response = await replicate.run(
@@ -127,23 +161,5 @@ async function generateImage(page) {
 }
 
 
-export async function generateStory(req, res) {
-    try {
-        const storyPages = await generateStoryText();
 
-        if (!Array.isArray(storyPages) || storyPages.length === 0) {
-            return res.status(500).json({ error: "Generated story is empty or invalid"});
-        }
-
-        const storyWithImageslink = [];
-        for (const page of storyPages) {
-            // const imageUrl = await generateImage(page);
-            // storyWithImages.push({ ...page, image: imageUrl });
-            storyWithImageslink.push({ ...page, image: "imageUrl"});
-        }
-
-        return res.json(storyWithImageslink);
-    } catch (error) {
-        return res.status(500).json({ error: error.message });
-    }
-}
+module.exports = generateStory;

@@ -1,11 +1,56 @@
-// Controller input : the image of each page of the story
+const replicate = require("replicate");
+const dotenv = require("dotenv");
+const fs = require("fs");
+const axios = require("axios");
+const mongoose = require("mongoose");
+const { ModelClient, isUnexpected } = require("@azure-rest/ai-inference");
+const { AzureKeyCredential } = require("@azure/core-auth");
+const translate = require("google-translate-api-x");
+const ParentPrompt = require("../../models/ParentPrompt");
 
-// functionnalities for each page : -api with multiple image output ?-
-//  - preparing ai prompt ,
-//  - send ai prompt request to generativeAi api ,
-//  - retrieve the Image from api response,
-//  - store the Image to cloud,
-//  - retrieve the link of where the video is stored,
 
-// Controller output :link of the Image of each page of the story
-// sent it to createStory controller
+
+
+const generateImage = async function (page) {
+    try {
+        const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
+
+        const translatedContent = await translateToEnglish(page.content);
+        const response = await replicate.run(
+            "stability-ai/stable-diffusion-2",
+            {
+                input: {
+                    prompt: translatedContent,
+                    width: 512,
+                    height: 512,
+                    num_outputs: 1
+                }
+            }
+        );
+
+
+
+        if (response && response.length > 0) {
+            return response[0];
+        } else {
+            console.error(` Error generating image for page ${page.position}:`, response);
+            return null;
+        }
+    } catch (error) {
+        console.error(` Image generation failed for page ${page.position}:`, error.message);
+        return null;
+    }
+}
+
+async function translateToEnglish(text) {
+    try {
+        const res = await translate(text, { from: 'ar', to: 'en' });
+        console.log(" Translated Text:", res.text);
+        return res.text;
+    } catch (error) {
+        console.error("Translation Error:", error.message);
+        return text;
+    }
+}
+
+module.exports = generateImage;

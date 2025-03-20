@@ -3,7 +3,7 @@ const ParentPromptModel = require('../../models/ParentPrompt');
 const LibraryModel = require ('../../models/Library');
 const ProfileModel = require ('../../models/Profile');
 const UserModel = require ('../../models/user');
-const generateStory = require ('../storyGenerator');
+const generateStoryPages = require ('../createStoryController/mainGenerationController');
 // main route handler
 const createStory = async (req,res,next) => {
     try {
@@ -11,6 +11,8 @@ const createStory = async (req,res,next) => {
 
     const promptparent = new ParentPromptModel(req.body);
     const savedParentPrompt = await promptparent.save();
+    console.log("parentPrompt of create is : ",savedParentPrompt);
+
     //retreive library id by user email
     const library_id= await retreive_UserLibrary_ByEmail(req.user,res);
 

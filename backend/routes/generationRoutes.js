@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { generateStory  } = require("../controllers/storyGenerator");
+const  generateStory   = require("../controllers/storyGenerator");
 
 const router = express.Router();
 
