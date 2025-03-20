@@ -9,7 +9,7 @@ const usersRoutes = require("../routes/users")
 const storyReadingRoutes = require('../routes/storyReadingRoutes');
 
 const libraryRoutes = require("../routes/libraryRoutes");
-const generationRoutes = require("../routes/generationRoutes"); 
+const generationRoutes = require("../routes/generationRoutes");
 
 const generateStoryRoutes = require ("../routes/createStoryRoutes");
 const removeStoryRoutes = require ("../routes/removeStoryRoutes");
