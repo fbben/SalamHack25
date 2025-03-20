@@ -1,24 +1,14 @@
-// import Replicate from "replicate";
-// import dotenv from "dotenv";
-// import fs from "fs";
-// import axios from "axios";
-// import mongoose from "mongoose";
-// import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
-// import { AzureKeyCredential } from "@azure/core-auth";
-// import ParentPrompt from "../models/ParentPrompt.js";
-// import translate from 'google-translate-api-x';
-
 const replicate = require("replicate");
 const dotenv = require("dotenv");
 const fs = require("fs");
 const axios = require("axios");
 const mongoose = require("mongoose");
-const { ModelClient, isUnexpected } = require("@azure-rest/ai-inference");
+// const { ModelClient, isUnexpected } = require("@azure-rest/ai-inference");
+const ModelClient = require("@azure-rest/ai-inference").default;
+const { isUnexpected } = require("@azure-rest/ai-inference");
 const { AzureKeyCredential } = require("@azure/core-auth");
 const translate = require("google-translate-api-x");
 const ParentPrompt = require("../models/ParentPrompt");
-
-
 
 const generateStory = async function (req, res) {
     try {
