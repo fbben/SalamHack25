@@ -8,11 +8,14 @@ import { Pressable } from "react-native";
 import { StyleSheet } from "react-native";
 import {styles} from "@/styles";
 
+
 import { useQuery } from '@tanstack/react-query';
 import Toast from "react-native-toast-message";
 import fetchStoryReadingData from '@/api/storyReading';
 
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+
+import playTTS from "./playAIAPI";
 
 const storyPages = [
   {
@@ -44,18 +47,20 @@ const storyPages = [
 
   
 
-const ControlButtons = () => (
+const ControlButtons = ({ pageIndex }: { pageIndex: number }) => (
   <HStack style={CSS_styles.controlButtons}>
     <Pressable
-      onPress={() => {
-        alert("sound");
-      }}
+      onPress={async () => {
+        playTTS(storyPages[pageIndex].text);
+        // playTTS('في قرية صغيرة على سفح جبل، كان هناك رجل عجوز يعيش بمفرده في كوخ صغير. كان الرجل معروفًا بحكمته وكرمه، وكان الجميع في القرية يحترمونه ويأتون إليه طلبًا للنصيحة. في أحد الأيام، قرر الرجل العجوز أن يزرع شجرة تفاح في حديقة منزله. قال لنفسه: "هذه الشجرة ستكون رمزًا للحياة والأمل، وسأعتني بها حتى تكبر وتثمر." مرت السنوات، ونمت الشجرة لتصبح كبيرة وقوية. في كل خريف، كانت تثمر الكثير من التفاح اللذيذ. كان الرجل العجوز يوزع التفاح على أهالي القرية، وكان الجميع يشكرونه على كرمه. لكن في أحد الأيام، مرض الرجل العجوز ولم يعد قادرًا على الاعتناء بالشجرة. بدأت الشجرة تذبل، وأصبحت ثمارها قليلة. شعر أهالي القرية بالحزن لما حدث للشجرة وللرجل العجوز. فقرروا أن يتعاونوا لرعاية الشجرة بدلًا منه. قاموا بتقليم الأغصان الميتة وسقايتها بانتظام. وبعد بضعة أشهر، عادت الشجرة إلى سابق عهدها، وأصبحت تثمر من جديد. تعلم أهالي القرية من هذه التجربة أن التعاون والاهتمام بالأشياء الجميلة في الحياة يمكن أن يجلب السعادة للجميع. ومنذ ذلك اليوم، أصبحت الشجرة رمزًا للوحدة والمحبة في القرية.');
+       }}
     >
       <MaterialIcons name="volume-up" size={30} color="#484C52" />
     </Pressable>
     <Pressable
       onPress={() => {
-        alert("home");
+        alert("homejjjj");
+        // router.push("/");
       }}
     >
       <MaterialIcons name="home" size={30} color="#FECC32" />
@@ -63,19 +68,19 @@ const ControlButtons = () => (
   </HStack>
 );
 
-export default function StoryReading() {
+export default function StoryReading(storyPages: any) {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['fetchStoryReadingData'],
     queryFn: fetchStoryReadingData,
-    onSuccess: (data) => {
+    onSuccess: (data:any) => {
       Toast.show({
         type: "success",
         text1: "Data Loaded",
         text2: "Story fetched successfully!",
       });
     },
-    onError: (error) => {
+    onError: (error:any) => {
       Toast.show({
         type: "error",
         text1: "Fetch Error",
@@ -116,7 +121,7 @@ export default function StoryReading() {
         </VStack>
 
         <VStack style={CSS_styles.text_ControlButtons_Container}>
-          <ControlButtons />
+          <ControlButtons pageIndex={pageIndex}/>
           <VStack style={CSS_styles.textContainer}>
             <Text className={`${styles.par1} ${CSS_styles.text}`}>{storyPages[pageIndex].text}</Text>
           </VStack>

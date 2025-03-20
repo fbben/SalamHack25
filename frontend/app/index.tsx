@@ -49,6 +49,13 @@ export default function LandingPage() {
           library
         </Text>
       </Pressable>
+      <Pressable onPress={() => router.replace("./(storyreading)/storyReadingContainer")}>
+        <Text
+          className={`${styles.par1} ${styles.yellow} underline text-black mx-auto`}
+        >
+          Read
+        </Text>
+      </Pressable>
     </>
   );
 }

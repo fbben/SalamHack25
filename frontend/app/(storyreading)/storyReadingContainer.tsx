@@ -1,4 +1,3 @@
-// import { Audio } from "expo-av";
 import { VStack } from "@/components/ui/vstack";
 import { StyleSheet, ScrollView } from "react-native";
 
@@ -7,13 +6,13 @@ import useScreenOrientation from "../../hooks/useScreenOrientation";
 
 import StoryReading from "./storyReadingComponent";
 
-export default function storyReadingContainer() {
+export default function storyReadingContainer(storyPages: any) {
   useScreenOrientation(ScreenOrientation.OrientationLock.LANDSCAPE);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <VStack style={styles.vStack}>
-        <StoryReading />
+        <StoryReading storyPages={storyPages} />
       </VStack>
     </ScrollView>
   );
