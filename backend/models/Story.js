@@ -13,6 +13,7 @@ const storySchema = new mongoose.Schema({
   },
   storyPages: [
     {
+      position : {type : String, required : true},
       content: { type: String, required: true }, // Page text content
       image_link: { type: String }, // URL to image (e.g., stored in Cloudinary)
       // audio attribut

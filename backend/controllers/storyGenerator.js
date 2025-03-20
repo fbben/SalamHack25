@@ -12,7 +12,6 @@ dotenv.config({ path: '../.env' });
 
 const AZURE_API_KEY = process.env.AZURE_API_KEY;
 const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY;
-const MONGO_URI = process.env.MONGO_URI;
 
 
 /// important : we need an api for the image generator , find one !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -22,32 +21,33 @@ if (!AZURE_API_KEY || !REPLICATE_API_KEY) {
     throw new Error("AZURE_API_KEY or REPLICATE_API_KEY is not set in environment variables.");
 }
 
-
 async function generateStoryText() {
+    // retreive Prompt
     const parentPrompt = await getFirstParentPrompt();
     if (!parentPrompt) {
         throw new Error("No parent prompt found in the database.");
     }
 
-    const promptText = `رجاءً، قم بإرجاع القصة فقط ككائن JSON منظم بدون أي نص إضافي.
+    const promptText = `رجاءً، قم بإرجاع القصة فقط ككائن JSON منظم بدون أي نص إضافي أو تفسيرات. يجب أن يكون الإخراج مطابقًا للتنسيق التالي تمامًا:
     [
-      { "position": "1", "content": "..." },
-      { "position": "2", "content": "..." }
+      { "position": "1", "content": "السطر الأول\nالسطر الثاني" },
+      { "position": "2", "content": "السطر الأول\nالسطر الثاني" }
     ]
     
     🔹 **تفاصيل القصة:**
-    - **الموضوع:** ${parentPrompt.theme}
-    - **الأسلوب السردي:** ${parentPrompt.narrative_style}
-    - **الطول:** ${parentPrompt.length}
-    - **النغمة:** ${parentPrompt.tone}
-    - **الأماكن والديكور:** ${parentPrompt.locations_and_decor}
-    - **البيئة:** ${parentPrompt.environment}
-    - **الحقبة الزمنية:** ${parentPrompt.era}
-    - **القيم الأخلاقية:** ${parentPrompt.morals}
-    - **الرسالة:** ${parentPrompt.message}
-    - **عدد الشخصيات:** ${parentPrompt.num_characters}
-    
-    📌 **ملاحظة:** يجب أن يكون الإخراج كائن JSON صالحًا فقط.`;
+      - الفكرة الأساسية للنص: ${parentPrompt.main_idea}
+      - الموضوع: ${parentPrompt.theme}
+      - الأسلوب السردي: ${parentPrompt.style}
+      - تفاصيل عن القصة: ${parentPrompt.details}
+      - طول القصة: ${parentPrompt.length}
+      - القيم الأخلاقية والرسالة المستهدفة: ${parentPrompt.lesson}
+      - عدد الشخصيات: ${parentPrompt.characters_number}
+      - جو القصة: ${parentPrompt.atmospher}
+
+    📌 **ملاحظة:**
+    1. يجب أن يحتوي كل عنصر (content) في المصفوفة على محتوى يتألف من سطرين على الأقل.
+    2. يجب أن يكون الإخراج كائن JSON صالحًا فقط، دون أي نص إضافي أو تعليقات.
+    `;
 
     const client = ModelClient(
         "https://models.inference.ai.azure.com",
@@ -81,17 +81,6 @@ async function generateStoryText() {
         throw new Error(" Failed to parse AI response");
     }
 }
-
-
-
-if (!mongoose.connection.readyState) {
-    mongoose.connect(MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }).then(() => console.log(" MongoDB Connected"))
-    .catch(err => console.error(" MongoDB Connection Error:", err));
-}
-
 async function translateToEnglish(text) {
     try {
         const res = await translate(text, { from: 'ar', to: 'en' });
@@ -102,16 +91,14 @@ async function translateToEnglish(text) {
         return text;
     }
 }
-
+//! get prompt from createstory controller
 async function getFirstParentPrompt() {
     return await ParentPrompt.findOne().lean();
 }
-
-
 async function generateImage(page) {
     try {
         const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
-        
+
         const translatedContent = await translateToEnglish(page.content);
         const response = await replicate.run(
             "stability-ai/stable-diffusion-2",
@@ -124,8 +111,8 @@ async function generateImage(page) {
                 }
             }
         );
-        
-        
+
+
 
         if (response && response.length > 0) {
             return response[0];
@@ -145,16 +132,17 @@ export async function generateStory(req, res) {
         const storyPages = await generateStoryText();
 
         if (!Array.isArray(storyPages) || storyPages.length === 0) {
-            return res.status(500).json({ error: "Generated story is empty or invalid" });
+            return res.status(500).json({ error: "Generated story is empty or invalid"});
         }
 
-        const storyWithImages = [];
+        const storyWithImageslink = [];
         for (const page of storyPages) {
-            const imageUrl = await generateImage(page);
-            storyWithImages.push({ ...page, image: imageUrl });
+            // const imageUrl = await generateImage(page);
+            // storyWithImages.push({ ...page, image: imageUrl });
+            storyWithImageslink.push({ ...page, image: "imageUrl"});
         }
 
-        return res.json(storyWithImages);
+        return res.json(storyWithImageslink);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
