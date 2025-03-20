@@ -28,7 +28,7 @@ const users = [
 
 const populateDB = async () => {
     try {
-    
+
     await connectDB()
 
     // Hash passwords before saving users

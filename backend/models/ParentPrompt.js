@@ -1,23 +1,22 @@
 const mongoose = require("mongoose");
 
 const parentPromptSchema = new mongoose.Schema({
-  story_id: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "Story", 
-    unique: true, // One-to-One relationship
-    required: true 
-  },
-  theme: { type: String, required: true }, // Story theme
-  narrative_style: { type: String }, // Narrative style (e.g., first-person, third-person)
-  length: { type: String }, // Story length (short, medium, long)
-  tone: { type: String }, // Emotional tone (serious, funny, dramatic, etc.)
-  locations_and_decor: { type: String }, // Description of locations and decor
-  environment: { type: String }, // Story environment (urban, nature, fantasy, etc.)
-  era: { type: String }, // Time period (past, present, future)
-  morals: { type: String }, // Ethical/moral message in the story
-  message: { type: String }, // Main takeaway from the story
-  num_characters: { type: Number }, // Number of main characters
-  audio_choice: { type: String } // Audio preferences (if applicable)
+
+    main_idea: { type: String, required: true }, // Core idea of the story
+    theme: { type: String, required: true, enum: ['قصص من التراث العربيّ الإسلاميّ', 'حكايات الأبطال', 'رحلات في الزمن'] }, // Story theme
+    style: { type: String, required: true, enum: ['درامي ومُلهم', 'مشوّق ومغامر', 'كوميدي ومرح'] }, // Storytelling tone/style
+    details: { type: String }, // Additional customization (e.g., character names, specific events)
+
+    atmospher: {
+        type: String,
+        enum: ['سوق تقليدي (مرحة)', 'الواحة (متفائلة)', 'مدينة قديمة (درامية)', 'مدينة قديمة (غامضة)', 'الصحراء (غامضة)']
+    }, // Story setting/mood
+
+    characters_number: { type: String, enum: ['1', '2', '3 أو أكثر'] }, // Number of main characters
+    length: { type: String, enum: ['قصيرة', 'متوسطة', 'طويلة'] }, // Story length
+    lesson: { type: String }, // Moral or lesson of the story
+    narrator_sex: { type: String, enum: ['ذكر', 'أنثى'] }, // Preferred narrator's gender
+
 });
 
 module.exports = mongoose.model("ParentPrompt", parentPromptSchema);
