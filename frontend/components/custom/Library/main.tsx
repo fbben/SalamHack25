@@ -12,7 +12,9 @@ import { useEffect } from "react";
 
 import { useQuery } from '@tanstack/react-query';
 import Toast from "react-native-toast-message";
-import { retrieveStories } from '@/api/library';
+
+import retrieveStories from "../../../api/library"
+
 
 export default function Main() {
   const [SearchKeyWords, setSearchKeyWords] = useState("");

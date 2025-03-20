@@ -1,8 +1,8 @@
-const API_BASE_URL = "http://localhost:5000/api/v1/"; // Replace with your backend URL
+import {BASE_URL} from require("./utilities")
 
 async function fetchStoryReadingData(storyId){
     try {
-        const response = await fetch(`${API_BASE_URL}/story-reading/${storyId}`, {
+        const response = await fetch(`${BASE_URL}/story-reading/${storyId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

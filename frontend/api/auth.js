@@ -1,6 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL = "http://192.168.100.6:5000/api/v1/auth";
+import {BASE_URL} from require("./utilities")
+const AUTH_URL = `${BASE_URL}/auth`;
 
 async function signup(data) {
   const response = await fetch(`${BASE_URL}/signup`, {

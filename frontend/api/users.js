@@ -1,8 +1,10 @@
 import * as SecureStore from 'expo-secure-store';
 
+import {BASE_URL} from require("./utilities")
+const USERS_URL = `${BASE_URL}/users`;
 
 async function getProfileData(token) {
-  const response = await fetch("http://192.168.100.6:5000/api/v1/users/profile", {
+  const response = await fetch(`${USERS_URL}/profile`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

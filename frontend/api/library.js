@@ -1,7 +1,10 @@
 import { storeToken, checkStoredToken, getStoredToken } from "../utils/expoStorage";
-const BASE_URL = "http://192.168.100.6:5000/api/v1/library";
 
-async function retrieveStories() {
+import {BASE_URL} from require("./utilities")
+const AUTH_URL = `${BASE_URL}/library`
+
+
+const retrieveStories = async () => {
   // Make sure to await the token if getStoredToken returns a promise
   const token = await getStoredToken();
 
@@ -22,4 +25,4 @@ async function retrieveStories() {
   return responseData;
 }
 
-module.exports = { retrieveStories };
+export default retrieveStories
