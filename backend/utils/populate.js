@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ParentPrompt from "../models/ParentPrompt.js"; // Adjust path if needed
+import ParentPrompt from "../models/ParentPrompt.js"; 
 
 // MongoDB Connection
 async function connectDB() {
