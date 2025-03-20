@@ -66,8 +66,7 @@ const creatingstoryModel = async (library_id,savedParentPrompt_id,generatedStory
       // creation of the story model (test until integration)
     const newstory = new StoryModel({
         library_id,
-        title: 'title of the story',
-        summary: 'summary of the story',
+        title: generatedStoryPages[0].content,
         parent_prompt_id: savedParentPrompt_id,
         storyPages: generatedStoryPages
     });

@@ -4,7 +4,6 @@ require('mongoose-type-url');
 const storySchema = new mongoose.Schema({
   library_id: { type: mongoose.Schema.Types.ObjectId, ref: "Library", required: true },
   title: { type: String, required: true },
-  summary: { type: String },
   created_at: { type: Date, default: Date.now,immutable: true },
   parent_prompt_id: {// story properties
     type: mongoose.Schema.Types.ObjectId,
