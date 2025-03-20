@@ -3,26 +3,22 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const axios = require("axios");
 const mongoose = require("mongoose");
-const { ModelClient, isUnexpected } = require("@azure-rest/ai-inference");
 const { AzureKeyCredential } = require("@azure/core-auth");
 const ParentPrompt = require("../../models/ParentPrompt");
-
-dotenv.config({ path: '../.env' });
-
-const AZURE_API_KEY = process.env.AZURE_API_KEY;
-const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY;
+const ModelClient = require("@azure-rest/ai-inference").default;
+const { isUnexpected } = require("@azure-rest/ai-inference");
 
 
+const generateStoryText = async function (inputparentPrompt) {
+    try {
+    const AZURE_API_KEY = process.env.AZURE_API_KEY;
 
-if (!AZURE_API_KEY || !REPLICATE_API_KEY) {
-    throw new Error("AZURE_API_KEY or REPLICATE_API_KEY is not set in environment variables.");
+if (!AZURE_API_KEY) {
+    throw new Error("AZURE_API_KEY is not set in environment variables.");
 }
 
-
-
-
-const generateStoryText = async function (parentPrompt) {
     // retreive Prompt document like the result of getFirstParentPrompt
+    const parentPrompt = await getFirstParentPrompt();
     if (!parentPrompt) {
         throw new Error("No parent prompt found in the database.");
     }
@@ -73,12 +69,16 @@ const generateStoryText = async function (parentPrompt) {
     let content = response.body.choices[0].message.content;
     content = content.replace(/```json\s*([\s\S]*?)\s*```/g, '$1').trim();
 
-    try {
+
         return JSON.parse(content);
     } catch (error) {
-        console.log(content);
+        console.log(error.message);
         throw new Error(" Failed to parse AI response");
     }
+}
+
+async function getFirstParentPrompt() {
+    return await ParentPrompt.findOne().lean();
 }
 
 module.exports= generateStoryText;

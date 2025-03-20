@@ -13,7 +13,11 @@ const ParentPrompt = require("../../models/ParentPrompt");
 
 const generateImage = async function (page) {
     try {
-        const replicate = new Replicate({ auth: process.env.REPLICATE_API_KEY });
+        const REPLICATE_API_KEY = process.env.REPLICATE_API_KEY;
+        if (!REPLICATE_API_KEY) {
+            throw new Error("REPLICATE_API_KEY is not set in environment variables.");
+}
+        const replicate = new replicate({ auth: process.env.REPLICATE_API_KEY });
 
         const translatedContent = await translateToEnglish(page.content);
         const response = await replicate.run(
