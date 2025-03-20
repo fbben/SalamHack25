@@ -12,6 +12,8 @@ import { Alert } from "react-native";
 import { deleteStory } from "@/api/StoryResult";
 import { useLocalSearchParams } from "expo-router";
 
+import { useRouter } from "expo-router";
+
 
 //
 //this is an example of the backend response,
@@ -27,6 +29,9 @@ import { useLocalSearchParams } from "expo-router";
 
 export default function StoryResult() {
 
+    const router = useRouter();
+    
+
     const [isDeletePopupVisible, setDeletePopupVisible] = useState(false);
 
     const { storyData } = useLocalSearchParams();
@@ -39,7 +44,7 @@ export default function StoryResult() {
         const result = await deleteStory();
         if (result.success) {
             Alert.alert("تم الحذف", "تم حذف القصة بنجاح!");
-            // route to Library screen.
+            router.replace("/Library")
         } else {
             Alert.alert("خطأ", "حدث خطأ أثناء الحذف، يرجى المحاولة لاحقًا.");
         }
@@ -66,7 +71,7 @@ export default function StoryResult() {
                     <AntDesign name="play" size={30} color="#FECC32" />
                     <Box className=" flex-1 h-[2px] bg-[#FECC32] self-center"></Box>
                 </HStack>
-                <Button className={`${styles.yellow_button}`}>
+                <Button onPress={() => router.replace("/library")} className={`${styles.yellow_button}`}>
                     <ButtonText className={`${styles.par2} ${styles.gray1}`}>إضافة القصّة إلى المكتبة</ButtonText>
                 </Button>
                 <Button className={`${styles.yellow_button}`} onPress={() => setDeletePopupVisible(true)}>

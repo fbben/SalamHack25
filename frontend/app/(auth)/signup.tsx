@@ -272,7 +272,7 @@ export default function SignupScreen() {
         </HStack>
         <HStack className="flex-row-reverse mx-auto gap-2">
           <Text className={`${styles.par1} text-black mx-auto`}>لديك حساب؟</Text>
-          <Pressable onPress={() => router.push("/login")}>
+          <Pressable onPress={() => router.replace("/login")}>
           <Text
             className={`${styles.par1} ${styles.yellow} underline text-black mx-auto`}
             

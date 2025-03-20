@@ -2,6 +2,11 @@ require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
+
+  // console.log("connectDB called from:\n", new Error().stack);
+
+
+
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB Connected");

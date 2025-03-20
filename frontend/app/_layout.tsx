@@ -13,7 +13,6 @@ import {
     ReadexPro_600SemiBold,
     ReadexPro_700Bold,
 } from '@expo-google-fonts/readex-pro';
-import Footer from "@/components/custom/Footer"
 import * as React from 'react';
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -53,8 +52,7 @@ export default function RootLayout() {
             <>
             <QueryClientProvider client={queryClient}>
             <GluestackUIProvider>
-                <Tabs></Tabs>
-                <Footer />
+                <Stack></Stack>
             </GluestackUIProvider>
             </QueryClientProvider>
             <Toast ref={(ref) => Toast.setRef(ref)} />]

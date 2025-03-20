@@ -28,6 +28,9 @@ import Toast from "react-native-toast-message";
 import { useRouter } from "expo-router";
 import { ScrollView } from "react-native";
 
+import { Link } from 'expo-router';
+
+
 export default function LoginScreen() {
   const router = useRouter();
   const {
@@ -51,6 +54,7 @@ export default function LoginScreen() {
       // reset()
       storeToken(data.data.token);
       checkStoredToken();
+      router.replace("/Library")
     },
     onError: (error) => {
       Toast.show({
@@ -209,7 +213,8 @@ export default function LoginScreen() {
             <Text className={`${styles.par1} text-black mx-auto`}>
               ليس لديك حساب؟
             </Text>
-            <Pressable onPress={() => router.push("/signup")}>
+            
+            <Pressable onPress={() => router.replace("/signup")}>
               <Text
                 className={`${styles.par1} ${styles.yellow} underline text-black mx-auto`}
               >
