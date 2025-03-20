@@ -20,6 +20,7 @@
     "@gluestack-ui/checkbox": "^0.1.39",
     "@gluestack-ui/form-control": "^0.1.19",
     "@gluestack-ui/icon": "^0.1.26",
+    "@gluestack-ui/image": "^0.1.17",
     "@gluestack-ui/input": "^0.1.38",
     "@gluestack-ui/nativewind-utils": "^1.0.26",
     "@gluestack-ui/overlay": "^0.1.22",
@@ -33,6 +34,8 @@
     "expo-font": "~13.0.4",
     "expo-linking": "~7.0.5",
     "expo-router": "~4.0.19",
+    "expo-screen-orientation": "^8.0.4",
+    "expo-secure-store": "~14.0.1",
     "expo-status-bar": "~2.0.1",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
@@ -46,8 +49,7 @@
     "react-native-svg": "^15.2.0",
     "react-native-toast-message": "^2.2.1",
     "react-native-web": "~0.19.13",
-    "tailwindcss": "^3.4.17",
-    "expo-secure-store": "~14.0.1"
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

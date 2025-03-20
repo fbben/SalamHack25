@@ -5,6 +5,7 @@ import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
 import CustomSelect from "@/components/custom/CustomSelect";
 import { styles } from "@/styles";
+import { router } from "expo-router";
 export default function StoryGenerator() {
 
     return (
@@ -61,6 +62,7 @@ export default function StoryGenerator() {
                     <InputField className={`${styles.par2} ${styles.gray2}`} placeholder="المغزى أو العبرة من القصّة" />
                 </Input>
                 <Button className={`${styles.yellow_button}`}><ButtonText className={`${styles.par2} ${styles.gray1}`}>توليد</ButtonText></Button>
+                <Button onPress={()=>{router.push("./(storyreading)/storyReadingContainer")}} className={`${styles.yellow_button}`}><ButtonText className={`${styles.par2} ${styles.gray1}`}>Read Story</ButtonText></Button>
             </VStack>
         </VStack>
     );
