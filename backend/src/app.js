@@ -29,7 +29,7 @@ app.use(morgan('dev'));
 
 
 // Routes
-app.use("/api/v1/generation", generationRoutes);
+app.use("/api/v1/generation", generationRoutes);// to remove and integrate it with generateStoryRoutes
 app.use("/api/v1/library",libraryRoutes)
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/story-reading", storyReadingRoutes);

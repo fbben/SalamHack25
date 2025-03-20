@@ -24,6 +24,7 @@ if (!AZURE_API_KEY || !REPLICATE_API_KEY) {
 
 
 async function generateStoryText() {
+    // retreive Prompt
     const parentPrompt = await getFirstParentPrompt();
     if (!parentPrompt) {
         throw new Error("No parent prompt found in the database.");
@@ -34,7 +35,7 @@ async function generateStoryText() {
       { "position": "1", "content": "..." },
       { "position": "2", "content": "..." }
     ]
-    
+
     🔹 **تفاصيل القصة:**
     - **الموضوع:** ${parentPrompt.theme}
     - **الأسلوب السردي:** ${parentPrompt.narrative_style}
@@ -46,7 +47,7 @@ async function generateStoryText() {
     - **القيم الأخلاقية:** ${parentPrompt.morals}
     - **الرسالة:** ${parentPrompt.message}
     - **عدد الشخصيات:** ${parentPrompt.num_characters}
-    
+
     📌 **ملاحظة:** يجب أن يكون الإخراج كائن JSON صالحًا فقط.`;
 
     const client = ModelClient(
@@ -83,7 +84,7 @@ async function generateStoryText() {
 }
 
 
-
+//! probably second connection to the database
 if (!mongoose.connection.readyState) {
     mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,
@@ -102,7 +103,7 @@ async function translateToEnglish(text) {
         return text;
     }
 }
-
+//! get prompt from createstory controller
 async function getFirstParentPrompt() {
     return await ParentPrompt.findOne().lean();
 }
