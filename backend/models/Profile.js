@@ -5,14 +5,5 @@ const profileSchema = new mongoose.Schema({
   profile_picture: { type: String , required: false ,default: ""},
   access_key_to_ai: { type: String , required : false,default: ""}
 });
-profileSchema.pre("remove",async function (next){
-  try {
-    await mongoose.model("Library").deleteOne({profile_id : this._id});
-   next();
-  }catch(error){
-    next(error);
-  }
-
-});
 
 module.exports = mongoose.model("Profile", profileSchema);

@@ -18,15 +18,14 @@ const storySchema = new mongoose.Schema({
       // audio attribut
     }],
 },);
-
-storySchema.pre("remove",async function (next){
+// used as middlware to delete the associated parent prompt before deleting story
+storySchema.pre("deleteOne",{document : true,query : false},async function (next){
   try {
-    await mongoose.model("ParentPrompt").deleteOne({_id : this.parent_prompt_id});
-   next();
+      await mongoose.model("ParentPrompt").deleteOne({ _id: this.parent_prompt_id });
+    next();
   }catch(error){
    next(error);
   }
-
 });
 
 module.exports = mongoose.model("Story", storySchema);

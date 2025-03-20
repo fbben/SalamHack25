@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const storyReadingRoutes = require('../routes/storyReadingRoutes');
 const authRoutes = require("../routes/authRoutes");
 const generateStoryRoutes = require ("../routes/createStoryRoutes");
+const removeStoryRoutes = require ("../routes/removeStoryRoutes");
 
 
 
@@ -26,6 +27,7 @@ app.use(morgan('dev'));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/story-reading", storyReadingRoutes);
 app.use("/api/v1/story_create",generateStoryRoutes);
+app.use("/api/v1/story_delete",removeStoryRoutes);
 
 
 app.get('/', (req, res) => {
