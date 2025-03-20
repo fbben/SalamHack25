@@ -3,7 +3,7 @@ const ParentPromptModel = require('../../models/ParentPrompt');
 const LibraryModel = require ('../../models/Library');
 const ProfileModel = require ('../../models/Profile');
 const UserModel = require ('../../models/user');
-
+const generateStory = require ('../storyGenerator');
 // main route handler
 const createStory = async (req,res,next) => {
     try {
@@ -14,12 +14,38 @@ const createStory = async (req,res,next) => {
     //retreive library id by user email
     const library_id= await retreive_UserLibrary_ByEmail(req.user,res);
 
-//==========================================================
-//send and retereive the result of generative AI prompt
-//..........................
+//=================================================
+// const generatedStoryPages = await generateStory.generateStory();
+ const generatedStoryPages =[
+  {
+    "position":"1",
+    "content": "في سوق قديم مزدحم، يعثر زيد على خريطة بالية مخبأة داخل كتاب قديم.",
+    "image_link": "https://example.com/image1.jpg",
+  },
+  {
+    "position":"2",
+    "content": "مستعينًا بالرموز الغامضة، ينطلق في رحلة عبر الصحراء القاحلة متحديًا حرارة الشمس وكثبان الرمال.",
+    "image_link": "https://example.com/image2.jpg"
+  },
+  {
+    "position":"3",
+    "content": "عند غروب الشمس، يصل إلى واحة منسية، حيث يخبره شيخ حكيم بأسطورة الكنز المفقود.",
+    "image_link": "https://example.com/image3.jpg"
+  },
+  {
+    "position":"4",
+    "content": "بحماس متجدد، يواجه زيد الألغاز القديمة والفخاخ المميتة داخل القبر المخفي.",
+    "image_link": "https://example.com/image4.jpg"
+  },
+  {
+    "position":"5",
+    "content": "وأخيرًا، يكتشف الكنز—لوحًا ذهبيًا منقوشًا بحكمة تهدف إلى إرشاد الأجيال القادمة.",
+    "image_link": "https://example.com/image5.jpg"
+  }
+]
 //=================================================
 // create story model
-const savedStory = await creatingstoryModel(library_id,savedParentPrompt._id);
+const savedStory = await creatingstoryModel(library_id,savedParentPrompt._id,generatedStoryPages);
 
     //success httpresponse .
         return res.status(201).json({
@@ -36,7 +62,7 @@ const savedStory = await creatingstoryModel(library_id,savedParentPrompt._id);
 
 
 //======================================================================================
-const creatingstoryModel = async (library_id,savedParentPrompt_id)=>{
+const creatingstoryModel = async (library_id,savedParentPrompt_id,generatedStoryPages)=>{
 
       // creation of the story model (test until integration)
     const newstory = new StoryModel({
@@ -44,33 +70,7 @@ const creatingstoryModel = async (library_id,savedParentPrompt_id)=>{
         title: 'title of the story',
         summary: 'summary of the story',
         parent_prompt_id: savedParentPrompt_id,
-        storyPages: [
-          {
-            "position":"1",
-            "content": "في سوق قديم مزدحم، يعثر زيد على خريطة بالية مخبأة داخل كتاب قديم.",
-            "image_link": "https://example.com/image1.jpg",
-          },
-          {
-            "position":"2",
-            "content": "مستعينًا بالرموز الغامضة، ينطلق في رحلة عبر الصحراء القاحلة متحديًا حرارة الشمس وكثبان الرمال.",
-            "image_link": "https://example.com/image2.jpg"
-          },
-          {
-            "position":"3",
-            "content": "عند غروب الشمس، يصل إلى واحة منسية، حيث يخبره شيخ حكيم بأسطورة الكنز المفقود.",
-            "image_link": "https://example.com/image3.jpg"
-          },
-          {
-            "position":"4",
-            "content": "بحماس متجدد، يواجه زيد الألغاز القديمة والفخاخ المميتة داخل القبر المخفي.",
-            "image_link": "https://example.com/image4.jpg"
-          },
-          {
-            "position":"5",
-            "content": "وأخيرًا، يكتشف الكنز—لوحًا ذهبيًا منقوشًا بحكمة تهدف إلى إرشاد الأجيال القادمة.",
-            "image_link": "https://example.com/image5.jpg"
-          }
-        ]
+        storyPages: generatedStoryPages
     });
     //save library in database
      const savedStory = await newstory.save();

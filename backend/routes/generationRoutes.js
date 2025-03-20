@@ -4,6 +4,6 @@ const { generateStory  } = require("../controllers/storyGenerator");
 
 const router = express.Router();
 
-router.get("/generate", generateStory );// file will be removed
+router.get("/generate", generateStory );
 
 module.exports = router;
