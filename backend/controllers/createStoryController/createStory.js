@@ -4,7 +4,7 @@ const LibraryModel = require ('../../models/Library');
 const ProfileModel = require ('../../models/Profile');
 const UserModel = require ('../../models/user');
 
-// main route hundler
+// main route handler
 const createStory = async (req,res,next) => {
     try {
     //save the prompt in the database

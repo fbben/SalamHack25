@@ -1,7 +1,16 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/user");
+const LibraryModel = require("../models/Library")
 const { saltRounds } = require("../utils/globals");
+const ProfileModel = require("../models/Profile");
+
+//! handle profile and library creation
+//! handle profile and library deletion
+//! edge case where one of these three is created but not the others
+//! which means one of them exists but not the others
+//! ( user, profile, library )
+//! also delete the models related to these three
 
 const signup = async (req, res, next) => {
   try {
@@ -78,9 +87,11 @@ const signup = async (req, res, next) => {
       password_hash: hashedPassword,
     });
 
+    let user, userProfile, userLibrary;
+
     // Save the user to the database
     try {
-      await newUser.save();
+      user = await  newUser.save();
     } catch (saveError) {
       console.error("Error saving user:", saveError);
       if (saveError.name === "ValidationError") {
@@ -95,6 +106,28 @@ const signup = async (req, res, next) => {
       return res.status(500).json({
         success: false,
         message: "Internal server error while saving the user.",
+      });
+    }
+
+    try {
+      let profile = new ProfileModel({ user_id: user._id });
+      userProfile =  await profile.save();
+    } catch (error) {
+      return res.status(400).json({
+        succes: false,
+        message: "error while creating profile model",
+      });
+    }
+
+    console.log(1)
+
+    try {
+      let library = new LibraryModel({ profile_id: userProfile._id });
+      userLibrary = await library.save();
+    } catch (error) {
+      return res.status(400).json({
+        succes: false,
+        message: "error while creating library model",
       });
     }
 

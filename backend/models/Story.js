@@ -30,4 +30,3 @@ storySchema.pre("deleteOne",{document : true,query : false},async function (next
 
 module.exports =  mongoose.model("Story", storySchema);
 
-
