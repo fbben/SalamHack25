@@ -23,7 +23,7 @@ export default function Footer() {
         </Pressable>
       </View>
       <View className="ml-auto pr-14">
-        <FontAwesome onPress={() => router.replace("/library")} name="book" size={30} color="black" />
+        <FontAwesome onPress={() => router.replace("/Library")} name="book" size={30} color="black" />
       </View>
 
     </HStack>

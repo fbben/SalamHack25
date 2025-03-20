@@ -9,6 +9,7 @@ import React from "react";
 import StoryCover from "./StoryCover";
 import { VStack } from "@/components/ui/vstack";
 import FilterPage from "./filterPage";
+import { styles } from "@/styles";
 
 export default function Main() {
   const [SearchKeyWords, setSearchKeyWords] = useState("");
@@ -41,7 +42,7 @@ export default function Main() {
             onChangeText={setSearchKeyWords}
             value={SearchKeyWords}
             placeholder="ابحث عن قصتك"
-            className="text-right dir-rtl"
+            className={`${styles.par2}`}
           />
         </Input>
       </HStack>

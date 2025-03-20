@@ -84,7 +84,7 @@ export default function StoryGenerator() {
                         value={storyPreferences.mainIdea}
                         onChangeText={(text) => updateStoryPreferences("mainIdea", text)} />
                 </Input>
-                <HStack className=" flex-1 flex-row gap-2 mb-10">
+                <HStack className=" flex-1 flex-row gap-2">
                     <CustomSelect
                         placeholder="الأسلوب"
                         options={[
@@ -116,7 +116,7 @@ export default function StoryGenerator() {
                     />
                 </Input>
 
-                <HStack className=" flex-1 flex-row gap-2 mb-10">
+                <HStack className=" flex-1 flex-row gap-2">
                     <CustomSelect
                         placeholder="طول القصّة"
                         options={[
