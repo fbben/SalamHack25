@@ -49,7 +49,7 @@ async function playSound(sound, speed) {
 /**
  * Main function: Fetch all audio first, then play sequentially
  */
-async function playTTS(text, lang = "ar", speed = 1.2) {
+async function playTTS(text, lang = "ar", speed = 1.3) {
     if (isPlaying) {
         console.warn("TTS is already playing. Please wait.");
         return;

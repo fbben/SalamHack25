@@ -6,13 +6,13 @@ import useScreenOrientation from "../../hooks/useScreenOrientation";
 
 import StoryReading from "./storyReadingComponent";
 
-export default function storyReadingContainer(storyPages: any) {
+export default function storyReadingContainer() {
   useScreenOrientation(ScreenOrientation.OrientationLock.LANDSCAPE);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <VStack style={styles.vStack}>
-        <StoryReading storyPages={storyPages} />
+        <StoryReading />
       </VStack>
     </ScrollView>
   );
