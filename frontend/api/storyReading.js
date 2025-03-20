@@ -1,8 +1,8 @@
-import {BASE_URL} from require("./utilities")
+import {BASE_URL} from "./utilities"
 
 async function fetchStoryReadingData(storyId){
     try {
-        const response = await fetch(`${BASE_URL}/story-reading/${storyId}`, {
+        const response = await fetch(`http://192.168.100.6:5000/api/v1/story-reading/${storyId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

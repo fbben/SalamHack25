@@ -14,6 +14,7 @@ import { styles } from "@/styles";
 import { useQuery } from "@tanstack/react-query";
 import { getProfileData } from "@/api/users"; // adjust the path as needed
 import { getStoredToken } from "@/utils/expoStorage";
+import Footer from "@/components/custom/Footer";
 
 export default function ProfileScreen() {
   const { data, isLoading, error } = useQuery({
@@ -100,6 +101,7 @@ export default function ProfileScreen() {
           <FontAwesome name="google" size={30} color="grey" />
           <FontAwesome name="github" size={30} color="grey" />
         </HStack>
+        <Footer />
       </VStack>
     </ScrollView>
   );

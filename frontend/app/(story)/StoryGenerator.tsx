@@ -14,17 +14,30 @@ import { ScrollView } from "react-native";
 
 export default function StoryGenerator() {
 
+
+// "main_idea": "طفل يجد خريطة كنز قديم",
+// "theme": "حكايات الأبطال",
+// "style": "مشوّق ومغامر",
+// "details": "يحتوي على شخصية مساعدة حكيمة",
+// "atmospher": "مدينة قديمة (غامضة)",
+// "characters_number": "2",
+// "length": "متوسطة",
+// "lesson": "المثابرة تؤدي إلى النجاح",
+// "narrator_sex": "ذكر"
+
+
     const [storyPreferences, setStoryPreferences] = useState({
-        mainIdea: "",
-        theme: "",
-        style: "",
-        details: "",
-        atmospher: "",
-        charactersNumber: "",
-        length: "",
-        lesson: "",
-        narratorSex: "",
+        main_idea: null,
+        theme: null,
+        style: null,
+        details: null,
+        atmospher: null,
+        characters_number: null,
+        length: null,
+        lesson: null,
+        narrator_sex: null,
     });
+
     const [isConfirmPopupVisible, setConfirmPopupVisible] = useState(false);
 
     const router = useRouter();
@@ -34,7 +47,7 @@ export default function StoryGenerator() {
     };
 
     const handleConfirmGeneration = () => {
-        if (!storyPreferences.mainIdea.trim() || !storyPreferences.theme || !storyPreferences.style) {
+        if (!storyPreferences.main_idea.trim() || !storyPreferences.theme || !storyPreferences.style) {
             Alert.alert("خطأ", "يرجى ملء جميع الحقول الإجباريّة قبل المتابعة.");
             return;
         }
@@ -53,18 +66,19 @@ export default function StoryGenerator() {
     const handleStoryGeneration = async () => {
 
         setConfirmPopupVisible(false);
-        router.push({ pathname: "/StoryResult", params: { storyData: JSON.stringify(story) } });
 
-        // //call API.
-        // try {
-        //     const story = await generateStory(storyPreferences);
-        //     console.log("Generated Story:", story);
-        //     //route to StoryGeneration screen with the storyData prompt
-        // setConfirmPopupVisible(false);
         // router.push({ pathname: "/StoryResult", params: { storyData: JSON.stringify(story) } });
-        // catch (error) {
-        //     Alert.alert("خطأ", "حدث خطأ أثناء توليد القصة. يرجى المحاولة لاحقًا.");
-        // };
+
+        //call API.
+        try {
+            const story = await generateStory(storyPreferences);
+            console.log("Generated Story:", story);
+            //route to StoryGeneration screen with the storyData prompt
+        setConfirmPopupVisible(false);
+        router.push({ pathname: "/StoryResult", params: { storyData: JSON.stringify(story) } });
+        }catch (error) {
+            Alert.alert("خطأ", "حدث خطأ أثناء توليد القصة. يرجى المحاولة لاحقًا.");
+        };
     }
 
     return (
@@ -81,8 +95,8 @@ export default function StoryGenerator() {
                     <InputField
                         className={`${styles.par2}`}
                         placeholder="اكتب الفكرة الأساسيّة"
-                        value={storyPreferences.mainIdea}
-                        onChangeText={(text) => updateStoryPreferences("mainIdea", text)} />
+                        value={storyPreferences.main_idea}
+                        onChangeText={(text) => updateStoryPreferences("main_idea", text)} />
                 </Input>
                 <HStack className=" flex-1 flex-row gap-2">
                     <CustomSelect
@@ -134,8 +148,8 @@ export default function StoryGenerator() {
                             { label: "2", value: "2" },
                             { label: "3 أو أكثر", value: "3 أو أكثر" },
                         ]}
-                        value={storyPreferences.charactersNumber}
-                        onSelect={(value: any) => updateStoryPreferences("charactersNumber", value)} />
+                        value={storyPreferences.characters_number}
+                        onSelect={(value: any) => updateStoryPreferences("characters_number", value)} />
                     <CustomSelect
                         placeholder="االأجواء"
                         options={[
@@ -162,8 +176,8 @@ export default function StoryGenerator() {
                         { label: "ذكر", value: "ذكر" },
                         { label: "أنثى", value: "أنثى" },
                     ]}
-                    value={storyPreferences.narratorSex}
-                    onSelect={(value: any) => updateStoryPreferences("cnarratorSex", value)} />
+                    value={storyPreferences.narrator_sex}
+                    onSelect={(value: any) => updateStoryPreferences("narrator_sex", value)} />
 
                 <Button className={`${styles.yellow_button} mt-9`} onPress={handleConfirmGeneration}><ButtonText className={`${styles.par2} ${styles.gray1}`}>توليد</ButtonText></Button>
             </VStack>

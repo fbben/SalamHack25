@@ -1,14 +1,21 @@
-const API_URL = "https://my-api.com/generate-story";
+import {BASE_URL} from "./utilities"
+const AUTH_URL = `${BASE_URL}/story_create`
+import { storeToken, checkStoredToken, getStoredToken } from "../utils/expoStorage";
 
 export const generateStory = async (preferences) => {
   try {
-    const response = await fetch(API_URL, {
+
+    const token = await getStoredToken();
+
+    const response = await fetch("http://192.168.100.6:5000/api/v1/story_create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(preferences),
     });
+    
     if (!response.ok) {
       throw new Error("Failed to generate story.");
     }

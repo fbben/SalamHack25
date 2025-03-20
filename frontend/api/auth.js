@@ -1,10 +1,10 @@
 import * as SecureStore from 'expo-secure-store';
 
-import {BASE_URL} from require("./utilities")
+import {BASE_URL} from "./utilities"
 const AUTH_URL = `${BASE_URL}/auth`;
 
 async function signup(data) {
-  const response = await fetch(`${BASE_URL}/signup`, {
+  const response = await fetch(`http://192.168.100.6:5000/api/v1/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -20,7 +20,7 @@ async function signup(data) {
 }
 
 async function login(data) {
-  const response = await fetch(`${BASE_URL}/login`, {
+  const response = await fetch(`http://192.168.100.6:5000/api/v1/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

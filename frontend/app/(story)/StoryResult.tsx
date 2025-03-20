@@ -41,7 +41,7 @@ export default function StoryResult() {
         setDeletePopupVisible(false);
         //call API:
         //NB: call the delete function with id.
-        const result = await deleteStory();
+        const result = await deleteStory(GeneratedStory.data._id);
         if (result.success) {
             Alert.alert("تم الحذف", "تم حذف القصة بنجاح!");
             router.replace("/Library")
@@ -52,13 +52,13 @@ export default function StoryResult() {
 
     return (
         <VStack className="flex-1 p-5 gap-4">
-            <Text className={`${styles.header1} text-black`}>زهرة في القدس</Text>
+            <Text className={`${styles.header1} text-black`}>{GeneratedStory.data.title}</Text>
 
             <ScrollView className="flex-1 mt-4 mb-4">
                 <VStack className="gap-6">
-                    {GeneratedStory.Segments.map((segment: any, index: any) => (
+                    {GeneratedStory.data.storyPages.map((segment: any, index: any) => (
                         <VStack key={index} className="gap-3">
-                            <Text className={`${styles.par1}`}>{segment.text}</Text>
+                            <Text className={`${styles.par1}`}>{segment.content}</Text>
                             <Image source={require('/assets/rose.png')} className="w-full h-48 rounded-lg" />
                         </VStack>
                     ))}

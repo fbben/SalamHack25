@@ -18,6 +18,7 @@ const generateStoryPages = async function (prompt) {
 
         return storyWithImageslink;
     } catch (error) {
+        console.log(error.message)
         throw new Error ("Undefined problem while generating story content ");
     }
 }
