@@ -77,4 +77,4 @@ Replace `<username>`, `<password>`, and `<dbname>` with your actual MongoDB cred
 
 ---
 
-Your backend should now be up and running! 🚀
+Your backend should now be up and running!

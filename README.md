@@ -31,7 +31,7 @@ The idea of this porject cames from SalamHack Hackathon 2025.
 
 ## Technologies used:
 
-- **Frontend:** React-Native, Expo, Gluestack-ui, NativeWind.
+- **Frontend:** React-Native, Expo, Gluestack-ui and NativeWind.
 - **Backend:** Epressjs and mongoDB.
 - **AI API used:** GPT-4o mini and stability.ai.
 
