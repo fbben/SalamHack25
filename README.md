@@ -4,10 +4,10 @@ El-Qassas is a mobile application that enables parents to generate interactive s
 
 The idea of this porject cames from SalamHack Hackathon 2025. 
 
-![Story_generator](/images/)
-![Generated_story](/images/)
-![Library](/images/)
-![Reading_story](/images/)
+![Story_generator](/images/story_generator.png)
+![Generated_story](/images/generated_story.png)
+![Library](/images/library.png)
+![Reading_story](/images/reading_story.png)
 
 ## Key Features:
 - **AI-Generated Stories:** Parents can create customized stories based on themes, morals, or historical events.
