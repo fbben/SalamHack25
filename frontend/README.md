@@ -31,6 +31,6 @@ This will launch the Expo development environment.
 ## Technologies Used
 - React Native
 - Expo
-- Tailwind CSS
+- NativeWind CSS
 - Gluestack UI
 
